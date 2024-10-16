@@ -6,9 +6,9 @@ public class Reserva {
     private LocalDate DataDeCheck_in;
     private LocalDate DataDeCheck_out;
     private int NumDeQuartosReservados;
-    private int TipoDeQuartoReservado;
+    private String TipoDeQuartoReservado;
 
-    public Reserva(String nomeHospede, LocalDate dataDeCheck_in, LocalDate dataDeCheck_out, int numDeQuartosReservados, int tipoDeQuartoReservado) {
+    public Reserva(String nomeHospede, LocalDate dataDeCheck_in, LocalDate dataDeCheck_out, int numDeQuartosReservados, String tipoDeQuartoReservado) {
         NomeHospede = nomeHospede;
         DataDeCheck_in = dataDeCheck_in;
         DataDeCheck_out = dataDeCheck_out;
@@ -52,11 +52,11 @@ public class Reserva {
         NumDeQuartosReservados = numDeQuartosReservados;
     }
 
-    public int getTipoDeQuartoReservado() {
+    public String getTipoDeQuartoReservado() {
         return TipoDeQuartoReservado;
     }
 
-    public void setTipoDeQuartoReservado(int tipoDeQuartoReservado) {
+    public void setTipoDeQuartoReservado(String tipoDeQuartoReservado) {
         TipoDeQuartoReservado = tipoDeQuartoReservado;
     }
 

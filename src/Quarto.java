@@ -1,11 +1,11 @@
 public class Quarto {
 
     private int NumeroQuarto;
-    private int TipoQuarto;
+    private String TipoQuarto;
     private double Preco;
     private boolean Disponibilidade;
 
-    public Quarto(int numeroQuarto, int tipoQuarto, double preco, boolean disponibilidade) {
+    public Quarto(int numeroQuarto, String tipoQuarto, double preco, boolean disponibilidade) {
         NumeroQuarto = numeroQuarto;
         TipoQuarto = tipoQuarto;
         Preco = preco;
@@ -24,11 +24,11 @@ public class Quarto {
         NumeroQuarto = numeroQuarto;
     }
 
-    public int getTipoQuarto() {
+    public String getTipoQuarto() {
         return TipoQuarto;
     }
 
-    public void setTipoQuarto(int tipoQuarto) {
+    public void setTipoQuarto(String tipoQuarto) {
         TipoQuarto = tipoQuarto;
     }
 

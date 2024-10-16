@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class Hotel {
 
-    private ArrayList<Quarto> ListaQuartos;
-    private ArrayList<Reserva> ListaReservas;
-    private ArrayList<Hospede> ListaHospedes ;
+    private ArrayList<Quarto> ListaQuartos = new ArrayList();
+    private ArrayList<Reserva> ListaReservas = new ArrayList();
+    private ArrayList<Hospede> ListaHospedes = new ArrayList();
 
     public Hotel(ArrayList<Quarto> listaQuartos, ArrayList<Reserva> listaReservas, ArrayList<Hospede> listaHospedes) {
         ListaQuartos = listaQuartos;
