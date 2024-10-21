@@ -62,12 +62,12 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" +
-                "NomeHospede='" + NomeHospede + '\'' +
-                ", DataDeCheck_in=" + DataDeCheck_in +
-                ", DataDeCheck_out=" + DataDeCheck_out +
-                ", NumDeQuartosReservados=" + NumDeQuartosReservados +
-                ", TipoDeQuartoReservado=" + TipoDeQuartoReservado +
+        return "Reservas{" +
+                "Hospede - " + NomeHospede + '\'' +
+                ", data de check_in - " + DataDeCheck_in +
+                ", data de check_out - " + DataDeCheck_out +
+                ", quartos reservados - " + NumDeQuartosReservados +
+                ", tipo de quarto reservado - " + TipoDeQuartoReservado +
                 '}';
     }
 }

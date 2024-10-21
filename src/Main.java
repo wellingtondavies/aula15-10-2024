@@ -10,7 +10,10 @@ public class Main {
     public static Reserva reserva = new Reserva();
 
     public static void main(String[] args) {
+        //meu metodo inicializador ja entra com quartos e reservas prontas.
         inicializador();
+        System.out.println("meu metodo inicializador ja entra com quartos e reservas prontas.");
+
         boolean rodar = true;
 
         System.out.println(" SISTEMA DE GERENCIAMENTO DE HOTEL \n");
@@ -94,70 +97,85 @@ public class Main {
         System.out.println("CADASTRO DE RESERVAS");
         boolean rodarMetodo = true;
 
-        while (rodarMetodo){
-            System.out.println(" DIGITE O NOME DO HOSPEDE: \n");
+        while (rodarMetodo) {
+            System.out.println("DIGITE O NOME DO HOSPEDE: ");
             String nome = scan.next();
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dia/Mes/ano");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
 
-            System.out.println("DATA DE CHECK-IN (dia/Mes/ano) ? ");
-            String checkin = scan.nextLine();
-
+            System.out.println("DATA DE CHECK-IN (dia/Mes/ano)? ");
+            String checkin = scan.next();
             LocalDate data = LocalDate.parse(checkin, formatter);
 
-            System.out.println("DATA DE CHECK-OUT (dia/Mes/ano) ? ");
-            String checkout = scan.nextLine();
-
+            System.out.println("DATA DE CHECK-OUT (dia/Mes/ano)? ");
+            String checkout = scan.next();
             LocalDate dataCheckout = LocalDate.parse(checkout, formatter);
 
-            System.out.println(" QUARTOS DISPONIVEIS ");
-            for (int i = 0; i < hotel.getListaQuartos().size(); i++) {
-                System.out.println(hotel.getListaQuartos().get(i).toString());
-            }
+            System.out.println("Entrada: " + data);
+            System.out.println("Saída: " + dataCheckout);
 
-            System.out.println(" QUAL QUARTO DESEJA? ");
-            int opcaoo = scan.nextInt();
 
+            System.out.println("QUARTOS DISPONÍVEIS:");
             for (Quarto quarto1 : hotel.getListaQuartos()) {
-                if (opcaoo == quarto1.getNumeroQuarto()) {
-                    System.out.println("QUARTO SELECIONADO");
-                    quarto1.setDisponibilidade(false);
+                if (quarto1.isDisponibilidade()) {
+                    System.out.println(quarto1.toString());
                 }
             }
 
-            System.out.println(" QUANTOS QUARTOS RESERVADOS \n");
-            int quartos = scan.nextInt();
+            System.out.println("QUAL QUARTO DESEJA (digite o número do quarto)? ");
+            int numeroQuartoEscolhido = scan.nextInt();
+            String tipoQuartoSelecionado = "";
 
-            System.out.println(" TIPO DE QUARTO \n");
-            System.out.println(" - solteiro | - casal | - suite \n");
-            String opcao = scan.next();
 
-            Reserva reserva1 = new Reserva(nome, data, dataCheckout, quartos, opcao);
+            for (Quarto quarto1 : hotel.getListaQuartos()) {
+                if (numeroQuartoEscolhido == quarto1.getNumeroQuarto()) {
+                    if (quarto1.isDisponibilidade()) {
+                        System.out.println("QUARTO SELECIONADO: " + quarto1.getNumeroQuarto());
+                        tipoQuartoSelecionado = quarto1.getTipoQuarto();
+                        quarto1.setDisponibilidade(false);
+                    } else {
+                        System.out.println("Quarto não disponível. Escolha outro.");
+                    }
+                }
+            }
+
+            System.out.println("QUANTOS QUARTOS RESERVADOS?");
+            int quantidadeQuartos = scan.nextInt();
+
+            Reserva reserva1 = new Reserva(nome, data, dataCheckout, quantidadeQuartos, tipoQuartoSelecionado);
             hotel.getListaReservas().add(reserva1);
 
-            System.out.println(" DESEJA ADICIONAR MAIS RESERVAS \n");
-            System.out.println(" 1 - SIM | 2 - NÃO \n");
+            System.out.println("RESERVA EFETUADA PARA O QUARTO: " + tipoQuartoSelecionado);
 
-            int opcao2 = scan.nextInt();
-            if (opcao2 == 2){
-                System.out.println(" RESERVAS CONCLUIDAS \n");
+            System.out.println("DESEJA ADICIONAR MAIS RESERVAS? ");
+            System.out.println("1 - SIM | 2 - NÃO");
+            int opcaoContinuar = scan.nextInt();
+            if (opcaoContinuar == 2) {
+                System.out.println("RESERVAS CONCLUIDAS.");
                 rodarMetodo = false;
-                break;
             }
         }
     }
+
+
     public static void relatorioCheckin() {
         int atualizador = 0;
 
         System.out.println(" EXIBINDO QUARTOS OCUPADOS ");
         for (Quarto quarto1 : hotel.getListaQuartos()) {
-            if(quarto1.isDisponibilidade() == false ){
+            if (quarto1.isDisponibilidade() == false) {
                 atualizador++;
                 System.out.println(quarto1.toString());
-                LocalDate datain = reserva.getDataDeCheck_in();
-                LocalDate dataout = reserva.getDataDeCheck_out();
 
-                System.out.println("o periodo de ocupação vai de: "+datain+" a "+dataout);
+                for (Reserva reserva : hotel.getListaReservas()) {
+
+                    if (reserva.getTipoDeQuartoReservado().equalsIgnoreCase(quarto1.getTipoQuarto())) {
+                        LocalDate datain = reserva.getDataDeCheck_in();
+                        LocalDate dataout = reserva.getDataDeCheck_out();
+                        System.out.println("O período de ocupação vai de: " + datain + " a " + dataout);
+                        break;
+                    }
+                }
             }
         }
         System.out.println(" existem "+atualizador+" quartos ocupados \n");
@@ -165,13 +183,18 @@ public class Main {
 
         System.out.println("deseja eliminar alguma reserva? ( 1 - sim | 2 - não ) ");
         int opcao = scan.nextInt();
+        int id = 0;
 
-        System.out.println(" digite o numero do quarto que deseja eliminar a reserva: ");
-        int id = scan.nextInt();
+            if(opcao == 1){
+                System.out.println(" digite o numero do quarto que deseja eliminar a reserva: ");
+                 id = scan.nextInt();
+            }
+            int idd = id;
+
 
             if (opcao == 1){
                 for (Quarto quarto1 : hotel.getListaQuartos()) {
-                    if(id == quarto1.getNumeroQuarto()){
+                    if(idd == quarto1.getNumeroQuarto()){
                         quarto1.setDisponibilidade(true);
                         hotel.getListaReservas().remove(quarto1);
                         System.out.println(" status do quarto alterado para disponivel ");
@@ -199,4 +222,5 @@ public class Main {
         hotel.getListaReservas().add(reservaFixa2);
         Reserva reservaFixa3 = new Reserva(" lili ", LocalDate.of(24,10,16), LocalDate.of(24,10,17), 1, " suite ");
     }
+
 }
